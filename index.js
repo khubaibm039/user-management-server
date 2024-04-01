@@ -10,6 +10,7 @@ const users = [
 ];
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("users management server is running");
@@ -22,6 +23,10 @@ app.get("/users", (req, res) => {
 app.post("/users", (req, res) => {
     console.log("post api hitting");
     console.log(req.body);
+    const newUser = req.body;
+    newUser.id = users.length + 1;
+    users.push(newUser);
+    res.send(newUser);
 });
 
 app.listen(port, () => {
